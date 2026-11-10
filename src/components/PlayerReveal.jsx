@@ -7,11 +7,11 @@ import { playSound } from '../utils/sound.js';
 const AUTO_HIDE_SECONDS = 10;
 
 /**
- * Shows ONE player's secret word. The word lives only in props/state of this
- * component and is hidden: manually, after 10 s, when the tab loses focus,
+ * Shows ONE player's secret word and role. Both live only in props/state of this
+ * component and are hidden: manually, after 10 s, when the tab loses focus,
  * and the moment the player taps NEXT.
  */
-export default function PlayerReveal({ name, word, category, showHint, isLast, soundOn, onNext }) {
+export default function PlayerReveal({ name, word, isImposter, category, showHint, isLast, soundOn, onNext }) {
   const [revealed, setRevealed] = useState(false);
   const [seen, setSeen] = useState(false);
   const revealedAt = useRef(0);
@@ -64,10 +64,10 @@ export default function PlayerReveal({ name, word, category, showHint, isLast, s
         <motion.div
           animate={{ rotateY: revealed ? 0 : 180 }}
           transition={{ duration: 0.45 }}
-          className="relative h-72 w-full"
+          className="relative h-80 w-full"
           style={{ transformStyle: 'preserve-3d' }}
         >
-          {/* front: the word. Only rendered while revealed, so it is not even in the page when hidden */}
+          {/* front: role + word. Only rendered while revealed, so it is not even in the page when hidden */}
           <div
             className="card absolute inset-0 flex flex-col items-center justify-center overflow-hidden"
             style={{ backfaceVisibility: 'hidden' }}
@@ -75,7 +75,14 @@ export default function PlayerReveal({ name, word, category, showHint, isLast, s
           >
             {revealed && (
               <>
-                <p className="text-sm font-bold text-grape-900/60">Your secret word</p>
+                <span
+                  className={`rounded-full px-4 py-1 font-display text-lg font-bold ${
+                    isImposter ? 'bg-candy text-white' : 'bg-sky-game text-grape-950'
+                  }`}
+                >
+                  {isImposter ? '🕵️ You are the IMPOSTER' : '🙂 You are a CIVILIAN'}
+                </span>
+                <p className="mt-2 text-sm font-bold text-grape-900/60">Your secret word</p>
                 <p className="mt-2 break-words px-2 font-display text-5xl font-bold uppercase leading-tight text-grape-800 sm:text-6xl">
                   {word}
                 </p>

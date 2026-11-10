@@ -61,6 +61,7 @@ export default function App() {
             <PlayerReveal
               name={player.name}
               word={player.word}
+              isImposter={player.isImposter}
               category={round.category}
               showHint={settings.hints}
               soundOn={settings.sound}
