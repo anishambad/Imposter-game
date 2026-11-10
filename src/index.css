@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Nunito', ui-rounded, system-ui, sans-serif;
+  color: #fff;
+  background-color: #170a33;
+  background-image:
+    radial-gradient(900px 500px at 85% -5%, rgba(255, 79, 163, 0.45), transparent 60%),
+    radial-gradient(700px 600px at -10% 30%, rgba(56, 189, 248, 0.28), transparent 60%),
+    radial-gradient(800px 600px at 60% 110%, rgba(124, 58, 237, 0.7), transparent 60%),
+    linear-gradient(180deg, #2a1163 0%, #170a33 100%);
+  background-attachment: fixed;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Players should not be able to long-press-select the secret word by accident. */
+#root {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+input {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+:focus-visible {
+  outline: 3px solid #ffd23f;
+  outline-offset: 3px;
+}
+
+@layer components {
+  .btn {
+    @apply relative inline-flex min-h-[58px] w-full items-center justify-center gap-2 rounded-2xl border-b-[6px] px-6 py-3 font-display text-lg font-bold tracking-wide shadow-lg transition-transform duration-100 select-none;
+  }
+  .btn:active:not(:disabled) {
+    @apply translate-y-[4px] border-b-[2px];
+  }
+  .btn:disabled {
+    @apply cursor-not-allowed opacity-45;
+  }
+  .btn-yellow { @apply border-[#d99a00] bg-sun text-grape-900; }
+  .btn-pink { @apply border-[#c01f78] bg-candy text-white; }
+  .btn-blue { @apply border-[#1480b8] bg-sky-game text-grape-950; }
+  .btn-violet { @apply border-[#4c1d95] bg-violet-game text-white; }
+  .btn-ghost { @apply border-white/15 bg-white/10 text-white shadow-none; }
+  .btn-sm { @apply min-h-[46px] w-auto px-4 py-2 text-base; }
+
+  .card {
+    @apply rounded-[28px] border-b-[6px] border-[#e2cfae] bg-cream p-5 text-grape-900 shadow-xl;
+  }
+  .glass {
+    @apply rounded-[28px] border border-white/15 bg-white/10 p-5 backdrop-blur-md;
+  }
+  .field {
+    @apply w-full rounded-2xl border-2 border-transparent bg-white px-4 py-3 font-display text-lg font-semibold text-grape-900 placeholder:text-grape-900/35;
+  }
+  .field:focus {
+    @apply border-candy outline-none;
+  }
+  .field-error {
+    @apply border-red-500;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@keyframes shrink {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
